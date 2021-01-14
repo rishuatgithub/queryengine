@@ -1,0 +1,7 @@
+strict graph "" {
+	fact_AB -- tableA;
+	fact_AB -- tableB;
+	agg_BC -- fact_AB;
+	agg_BC -- tableA;
+	agg_BC -- tableB;
+}
