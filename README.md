@@ -1,2 +1,6 @@
-# queryengine
-SQL Queries parser Engine
+# Query Engine
+SQL Query Parser Engine
+
+- Author: Rishu Shrivastava
+
+
