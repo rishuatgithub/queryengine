@@ -15,16 +15,16 @@ def get_arguments():
         help="Data Path for the SQL. Accepts only .sql files")
 
     parser.add_argument("--graph_output_file", type=str, 
-        default="output/graph/sqlresultgraph.svg", 
+        default="output/graph/output_graph.svg", 
         help="Output filename of the generated graph file")
 
     parser.add_argument("--graph_output_psfile", type=str, 
-        default="output/graph/sqlresultgraph.ps", 
+        default="output/graph/output_graph_ps.ps", 
         help="Output filename of the .ps file")
 
     parser.add_argument("--csv_output_file", type=str, 
-        default="output/file/sqlresult.csv", 
-        help="Output CSV filename of the parsed sqls")
+        default="output/file/output_default.csv", 
+        help="Output CSV filename of the Parsed SQLs")
 
     return parser
 
