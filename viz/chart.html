@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart</title>
+    <script src="lib/go.js"></script>
+    <script>
+        function init(){
+            var $ = go.GraphObject.make;
+            myDiagram = $(go.Diagram, "myDiagramDiv", {
+                initialContentAlignment: go.Spot.Left,
+            initialAutoScale: go.Diagram.Uniform,
+            isReadOnly: true,  // do not allow users to modify or select in this view
+            allowSelect: false,
+            layout: $(go.TreeLayout, { nodeSpacing: 5 })  // automatically laid out as a tree
+            });
+
+            var nodeDataArray = [               
+ { key: 'BusinessType', group: 'PersistanceStage' },         
+ { key: 'CampaignBusinessType', group: 'PersistanceStage' },         
+ { key: 'SalesArea', group: 'PersistanceStage' },         
+ { key: 'Campaignpayback', group: 'PersistanceStage' },         
+ { key: 'AgencyCommision', group: 'PersistanceStage' },         
+ { key: 'CampaignTargets', group: 'PersistanceStage' },         
+ { key: 'ActualRatings', group: 'PersistanceStage' },         
+ { key: 'DealBusinessType', group: 'PersistanceStage' },         
+ { key: 'DealCampaignDaypartTimeslice', group: 'PersistanceStage' },         
+ { key: 'DealText', group: 'PersistanceStage' },         
+ { key: 'DealPositioninBreak', group: 'PersistanceStage' },         
+ { key: 'LengthPricingFactors', group: 'PersistanceStage' },         
+ { key: 'MediaGroup', group: 'PersistanceStage' },       
+ { key: 'SalesAreaFlags', group: 'PersistanceStage' },         
+ { key: 'ImprConvFactor', group: 'PersistanceStage' },         
+ { key: 'SalesAreaReportingGroup', group: 'PersistanceStage' },         
+ { key: 'UniverseDay', group: 'PersistanceStage' },         
+ { key: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP', group: 'IntermediaryLayer' },         
+ { key: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP', group: 'IntermediaryLayer' },         
+ { key: 'SUMMARY_FACT', group: 'IntermediaryLayer' },         
+ { key: 'CAMPAIGN_FACT', group: 'IntermediaryLayer' },         
+ { key: 'FORD_NONPREMIUM_DELIVERY', group: 'IntermediaryLayer' },     
+            ];
+            var linkDataArray = [
+ {from: 'CampaignTargets', to: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP'},          
+ {from: 'LengthPricingFactors', to: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP'},          
+ {from: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP', to: 'SUMMARY_FACT'},         
+ {from: 'SUMMARY_FACT', to: 'CAMPAIGN_FACT'},          
+ {from: 'CAMPAIGN_FACT', to: 'FORD_NONPREMIUM_DELIVERY'},
+ {from: 'CampaignTargets', to: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP'},          
+ {from: 'LengthPricingFactors', to: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP'},          
+ {from: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP', to: 'SUMMARY_FACT'},          
+ {from: 'SUMMARY_FACT', to: 'CAMPAIGN_FACT'},          
+ {from: 'CAMPAIGN_FACT', to: 'FORD_NONPREMIUM_DELIVERY'},    
+            ];
+
+            myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
+
+            myDiagram.nodeTemplate =
+                $(go.Node, "Auto", 
+                    $(go.Shape, "RoundedRectangle", {fill: "white"}, 
+                        new go.Binding("fill","color")
+                    ),
+                    $(go.TextBlock, "text",  { margin: 3 },
+                        new go.Binding("text", "key")
+                    )
+                )
+
+            myDiagram.linkTemplate = 
+                $(go.Link, go.Link.Bezier,
+                    $(go.Shape, { strokeWidth: 1.5 }),
+                    $(go.Shape, { toArrow: "Standard", stroke: null})
+                )
+
+
+        }
+
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .full-height {
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <h1>Data Lineage</h1>
+    <h4><input type="search" value="search here"></h4>
+
+    <div id="myDiagramDiv" class="full-height"></div>
+</body>
+</html>
