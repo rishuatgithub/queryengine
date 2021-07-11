@@ -9,8 +9,8 @@
             myDiagram = $(go.Diagram, "myDiagramDiv", {
                 initialContentAlignment: go.Spot.Left,
             initialAutoScale: go.Diagram.Uniform,
-            isReadOnly: true,  // do not allow users to modify or select in this view
-            allowSelect: false,
+            isReadOnly: false,  // do not allow users to modify or select in this view
+            allowSelect: true,
             layout: $(go.TreeLayout, { nodeSpacing: 5 })  // automatically laid out as a tree
             });
 
@@ -27,7 +27,7 @@
  { key: 'DealText', group: 'PersistanceStage' },         
  { key: 'DealPositioninBreak', group: 'PersistanceStage' },         
  { key: 'LengthPricingFactors', group: 'PersistanceStage' },         
- { key: 'MediaGroup', group: 'PersistanceStage' },       
+ { key: 'MediaGroup', group: 'PersistanceStage' }, 
  { key: 'SalesAreaFlags', group: 'PersistanceStage' },         
  { key: 'ImprConvFactor', group: 'PersistanceStage' },         
  { key: 'SalesAreaReportingGroup', group: 'PersistanceStage' },         
@@ -48,7 +48,8 @@
  {from: 'LengthPricingFactors', to: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP'},          
  {from: 'CAMP_CHANNEL_TARGET_RATINGS_LOOKUP', to: 'SUMMARY_FACT'},          
  {from: 'SUMMARY_FACT', to: 'CAMPAIGN_FACT'},          
- {from: 'CAMPAIGN_FACT', to: 'FORD_NONPREMIUM_DELIVERY'},    
+ {from: 'CAMPAIGN_FACT', to: 'FORD_NONPREMIUM_DELIVERY'},   
+ {from: 'DealText', to: 'SUMMARY_FACT'},    
             ];
 
             myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray)
